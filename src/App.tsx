@@ -5,8 +5,7 @@ import PurchaseForm from './components/PurchaseForm'; // Это первая ф�
 
 function App() {
   return (
-    <div className="App">
-      <h1>Создание закупок</h1>
+    <div className="space-y-6">
       <PurchaseForm />
       <RequestForm />
     </div>
