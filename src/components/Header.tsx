@@ -4,23 +4,23 @@ import { Notifications, Settings, HelpOutline } from '@mui/icons-material';
 
 interface HeaderProps {
   drawerOpen: boolean;
+  onNewRequestClick: () => void; // Новый пропс для обработки клика по кнопке
 }
 
-const Header: React.FC<HeaderProps> = ({ drawerOpen }) => (
+const Header: React.FC<HeaderProps> = ({ drawerOpen, onNewRequestClick }) => (
   <AppBar
     position="fixed"
     sx={{
       zIndex: 1200,
-      backgroundColor: '#fafafa', // Светло-светло-серый цвет заголовка
-      boxShadow: 'none', // Убираем тень для минималистичного дизайна
-      borderBottom: '1px solid #e0e0e0', // Граница снизу
-      marginLeft: drawerOpen ? '240px' : '80px', // Учитываем ширину боковой панели
+      backgroundColor: '#fafafa',
+      boxShadow: 'none',
+      borderBottom: '1px solid #e0e0e0',
+      marginLeft: drawerOpen ? '240px' : '80px',
       width: drawerOpen ? 'calc(100% - 240px)' : 'calc(100% - 80px)',
-      transition: 'margin-left 0.3s, width 0.3s', // Плавный переход для адаптации ширины
+      transition: 'margin-left 0.3s, width 0.3s',
     }}
   >
     <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      {/* Поле поиска */}
       <TextField
         variant="outlined"
         size="small"
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ drawerOpen }) => (
           maxWidth: 500,
           backgroundColor: '#fff',
           borderRadius: 1,
-          marginLeft: '48px', // Сдвигаем чуть правее
+          marginLeft: '48px',
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
               borderColor: '#e0e0e0',
@@ -44,8 +44,6 @@ const Header: React.FC<HeaderProps> = ({ drawerOpen }) => (
           },
         }}
       />
-
-      {/* Иконки и кнопка */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Notifications sx={{ color: '#757575' }} />
         <Settings sx={{ color: '#757575' }} />
@@ -59,14 +57,14 @@ const Header: React.FC<HeaderProps> = ({ drawerOpen }) => (
             borderRadius: 3,
             paddingX: 2,
             fontWeight: 'bold',
-            marginLeft: '16px', // Отступ слева от кнопки
-            marginRight: '16px', // Отступ справа от кнопки
+            marginLeft: '16px',
             '&:hover': {
               backgroundColor: '#333',
             },
           }}
+          onClick={onNewRequestClick} // Добавляем вызов переданной функции
         >
-          + New request
+          + Новый запрос
         </Button>
       </Box>
     </Toolbar>
