@@ -6,32 +6,32 @@ import PageRouter from './components/PageRouter';
 
 const App: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [currentPage, setCurrentPage] = useState<'home' | 'newRequest' | 'poolRegistration' | 'nextAction'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier'>('home');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Обработчики переходов между страницами
   const handleNewRequestClick = () => setCurrentPage('newRequest');
   const handlePoolClick = () => setCurrentPage('poolRegistration');
   const handleNextActionClick = () => setCurrentPage('nextAction');
+  const handleAnalysisClick = () => setCurrentPage('analysis');
+  const handlePoolDetailsClick = () => setCurrentPage('poolDetails');
+  const handleNewVendorClick = () => setCurrentPage('newVendor');
+  const handleSelectSupplierClick = () => setCurrentPage('selectSupplier');
+  
   const handleClose = () => setCurrentPage('home');
-
-  // Обработчик уведомления
   const handleSnackbarClose = () => setSnackbarOpen(false);
-
-  // Обработчик создания пустого пула
   const handleCreateEmptyPool = () => {
     setSnackbarOpen(true);
     setCurrentPage('home');
+  };
+  const handleNextClick = () => setCurrentPage('selectSupplier'); // Переход на страницу выбора поставщика
+  const handleRegisterNewSupplier = () => {
+    // Логика регистрации нового поставщика
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      {/* Боковая панель */}
       <Sidebar open={drawerOpen} toggleDrawer={() => setDrawerOpen(!drawerOpen)} />
-
-      {/* Верхняя панель */}
       <Header drawerOpen={drawerOpen} onNewRequestClick={handleNewRequestClick} />
 
       {/* Основной контент */}
@@ -51,8 +51,13 @@ const App: React.FC = () => {
           onNewRequestClick={handleNewRequestClick}
           onPoolClick={handlePoolClick}
           onNextActionClick={handleNextActionClick}
+          onAnalysisClick={handleAnalysisClick}
+          onPoolDetailsClick={handlePoolDetailsClick}
           onClose={handleClose}
           onCreateEmptyPool={handleCreateEmptyPool}
+          onNewVendorClick={handleNewVendorClick}
+          onNextClick={handleNextClick}
+          onRegisterNewSupplier={handleRegisterNewSupplier}
         />
       </Box>
 
