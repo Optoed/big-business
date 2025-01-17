@@ -1,11 +1,11 @@
+// SelectSupplierPage.tsx
 import React from 'react';
 import { Box, Typography, Button, TextField, MenuItem, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-// Типы для props
 interface SelectSupplierPageProps {
   onClose: () => void;
-  onRegisterNewSupplier: () => void;
+  onRegisterNewSupplier: () => void;  // Этот пропс должен быть передан из родительского компонента
 }
 
 const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegisterNewSupplier }) => (
@@ -42,20 +42,11 @@ const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegi
       <CloseIcon />
     </IconButton>
 
-    {/* Заголовок */}
-    <Typography
-      variant="h5"
-      sx={{
-        fontWeight: 'bold',
-        marginBottom: 4,
-        textAlign: 'center',
-      }}
-    >
+    <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 4, textAlign: 'center' }}>
       Выберите поставщика:
     </Typography>
 
     <Box sx={{ width: '100%', maxWidth: 600, paddingX: 3 }}>
-      {/* Поле выбора поставщика */}
       <TextField
         select
         fullWidth
@@ -68,11 +59,8 @@ const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegi
         <MenuItem value="Ромашка">Ромашка</MenuItem>
       </TextField>
 
-      <Typography sx={{ marginBottom: 2 }}>
-        Либо зарегистрируйте нового:
-      </Typography>
-      
-      {/* Кнопка для регистрации нового поставщика */}
+      <Typography sx={{ marginBottom: 2 }}>Либо зарегистрируйте нового:</Typography>
+
       <Button
         variant="outlined"
         sx={{
@@ -86,12 +74,11 @@ const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegi
             borderColor: '#333',
           },
         }}
-        onClick={onRegisterNewSupplier}
+        onClick={onRegisterNewSupplier}  // Важно! Этот обработчик должен работать
       >
         Зарегистрировать нового поставщика
       </Button>
 
-      {/* Кнопка пропуска */}
       <Button
         variant="text"
         sx={{

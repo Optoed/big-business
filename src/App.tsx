@@ -6,7 +6,7 @@ import PageRouter from './components/PageRouter';
 
 const App: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [currentPage, setCurrentPage] = useState<'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier' | 'registerSupplier'>('home');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleNewRequestClick = () => setCurrentPage('newRequest');
@@ -17,16 +17,18 @@ const App: React.FC = () => {
   const handleNewVendorClick = () => setCurrentPage('newVendor');
   const handleSelectSupplierClick = () => setCurrentPage('selectSupplier');
   
+  // Новый обработчик для перехода на RegisterSupplierPage
+  const handleRegisterNewSupplier = () => {
+    setCurrentPage('registerSupplier');
+  };
+
   const handleClose = () => setCurrentPage('home');
   const handleSnackbarClose = () => setSnackbarOpen(false);
   const handleCreateEmptyPool = () => {
-    setSnackbarOpen(true);
+    setSnackbarOpen(true); // Отображаем уведомление
     setCurrentPage('home');
   };
   const handleNextClick = () => setCurrentPage('selectSupplier'); // Переход на страницу выбора поставщика
-  const handleRegisterNewSupplier = () => {
-    // Логика регистрации нового поставщика
-  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -57,7 +59,7 @@ const App: React.FC = () => {
           onCreateEmptyPool={handleCreateEmptyPool}
           onNewVendorClick={handleNewVendorClick}
           onNextClick={handleNextClick}
-          onRegisterNewSupplier={handleRegisterNewSupplier}
+          onRegisterNewSupplier={handleRegisterNewSupplier}  // Передаем обработчик
         />
       </Box>
 

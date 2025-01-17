@@ -5,11 +5,21 @@ import PoolRegistrationPage from '../pages/PoolRegistrationPage';
 import NextActionPage from '../pages/NextActionPage';
 import AnalysisPage from '../pages/AnalysisPage';
 import PoolDetailsPage from '../pages/PoolDetailsPage';
-import NewVendorPage from '../pages/NewVendorPage'; // Импортируем NewVendorPage
-import SelectSupplierPage from '../pages/SelectSupplierPage'; // Импортируем SelectSupplierPage
+import NewVendorPage from '../pages/NewVendorPage';
+import SelectSupplierPage from '../pages/SelectSupplierPage';
+import RegisterSupplierPage from '../pages/RegisterSupplierPage'; // Убедитесь, что импортирован RegisterSupplierPage
 
 interface PageRouterProps {
-  currentPage: 'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier';
+  currentPage:
+    | 'home'
+    | 'newRequest'
+    | 'poolRegistration'
+    | 'nextAction'
+    | 'analysis'
+    | 'poolDetails'
+    | 'newVendor'
+    | 'selectSupplier'
+    | 'registerSupplier';
   onNewRequestClick: () => void;
   onPoolClick: () => void;
   onNextActionClick: () => void;
@@ -18,10 +28,11 @@ interface PageRouterProps {
   onClose: () => void;
   onCreateEmptyPool: () => void;
   onNewVendorClick: () => void;
+  onRegisterNewSupplier: () => void;  // Добавляем onRegisterNewSupplier
   onNextClick: () => void;
-  onRegisterNewSupplier: () => void;
 }
 
+// PageRouter.tsx
 const PageRouter: React.FC<PageRouterProps> = ({
   currentPage,
   onNewRequestClick,
@@ -32,8 +43,8 @@ const PageRouter: React.FC<PageRouterProps> = ({
   onClose,
   onCreateEmptyPool,
   onNewVendorClick,
-  onNextClick,
   onRegisterNewSupplier,
+  onNextClick,
 }) => {
   switch (currentPage) {
     case 'home':
@@ -58,9 +69,12 @@ const PageRouter: React.FC<PageRouterProps> = ({
       return <NewVendorPage onClose={onClose} onNextClick={onNextClick} />;
     case 'selectSupplier':
       return <SelectSupplierPage onClose={onClose} onRegisterNewSupplier={onRegisterNewSupplier} />;
+    case 'registerSupplier':
+      return <RegisterSupplierPage onClose={onClose} />;
     default:
       return null;
   }
 };
+
 
 export default PageRouter;
