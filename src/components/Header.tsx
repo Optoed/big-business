@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ drawerOpen, onNewRequestClick }) => (
       <TextField
         variant="outlined"
         size="small"
-        placeholder="Search"
+        placeholder="Поиск"
         sx={{
           flexGrow: 1,
           maxWidth: 500,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, Typography, IconButton } from '@mui/material';
-import { Menu as MenuIcon, Home, ListAlt, Approval, RequestPage, Event, Store, Payments, CreditCard, Insights, Timer } from '@mui/icons-material';
+import { Menu as MenuIcon, Home, ListAlt, Approval, RequestPage, Event, Store, Payments, CreditCard, Insights, Timer, TaskAlt, Chat, Settings } from '@mui/icons-material';
 
 interface SidebarProps {
   open: boolean;
@@ -61,16 +61,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleDrawer }) => (
     {/* Список меню */}
     <List sx={{ paddingTop: 0 }}>
       {[
-        { text: 'Home', icon: <Home /> },
-        { text: 'Queues', icon: <ListAlt /> },
-        { text: 'Approvals', icon: <Approval /> },
-        { text: 'Requests', icon: <RequestPage /> },
-        { text: 'RFx events', icon: <Event /> },
-        { text: 'Vendors', icon: <Store /> },
-        { text: 'Pay', icon: <Payments /> },
-        { text: 'Cards', icon: <CreditCard /> },
-        { text: 'Insights', icon: <Insights /> },
-        { text: 'Budgets', icon: <Timer /> },
+        { text: 'Главная', icon: <Home /> },
+        { text: 'Пулы', icon: <ListAlt /> },
+        { text: 'Закупки', icon: <RequestPage /> },
+        { text: 'Задачи', icon: <TaskAlt /> },
+        { text: 'Запросы', icon: <Chat /> },
+        { text: 'Оплаты', icon: <CreditCard /> },
+        { text: 'Поставщики', icon: <Store /> },
+        { text: 'Настройки', icon: <Settings /> },
       ].map((item, index) => (
         <ListItem key={index} disablePadding>
           <ListItemButton
