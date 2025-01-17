@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, TextField, IconButton, MenuItem, Tab, Tabs } from '@mui/material';
+import { Box, Typography, Button, TextField, IconButton, MenuItem, Tabs, Tab } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+
+// Определим интерфейс для контакта
+interface Contact {
+  name: string;
+  phone: string;
+  email: string;
+  position: string;
+}
 
 const RegisterSupplierPage: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState(0); // Управление текущей вкладкой
+  const [contacts, setContacts] = useState<Contact[]>([
+    { name: '', phone: '', email: '', position: '' }, // Начальный контакт
+  ]); // Состояние для хранения контактных лиц
 
   // Обработчик для смены вкладок
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
+  };
+
+  // Обработчик изменения данных контактного лица
+  const handleContactChange = (index: number, field: keyof Contact, value: string) => {
+    const updatedContacts = [...contacts];
+    updatedContacts[index][field] = value;
+    setContacts(updatedContacts);
+  };
+
+  // Добавление нового контактного лица
+  const handleAddContact = () => {
+    setContacts([
+      ...contacts,
+      { name: '', phone: '', email: '', position: '' }, // Добавляем новый контакт
+    ]);
   };
 
   return (
@@ -18,11 +45,11 @@ const RegisterSupplierPage: React.FC<{ onClose: () => void }> = ({ onClose }) =>
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        minHeight: '100vh',  // Устанавливаем минимальную высоту 100% для растягивания компонента на весь экран
+        minHeight: '100vh',
         width: '100%',
         backgroundColor: '#f4f4f4',
         paddingTop: 5,
-        paddingBottom: 4,  // Добавляем отступ снизу для кнопки
+        paddingBottom: 4,
       }}
     >
       {/* Кнопка закрытия */}
@@ -114,15 +141,81 @@ const RegisterSupplierPage: React.FC<{ onClose: () => void }> = ({ onClose }) =>
       {/* Контакты (вкладка 1) */}
       {activeTab === 1 && (
         <Box sx={{ width: '100%', maxWidth: 600, paddingX: 3 }}>
-          {/* Здесь будут поля для ввода контактных данных */}
-          <Typography sx={{ marginBottom: 2 }}>Контактное лицо:</Typography>
-          <TextField fullWidth label="Иван Иванов" variant="outlined" sx={{ marginBottom: 2 }} />
+          <Typography sx={{ marginBottom: 2 }}>Контактные лица:</Typography>
 
-          <Typography sx={{ marginBottom: 2 }}>Телефон:</Typography>
-          <TextField fullWidth label="8-800-555-35-35" variant="outlined" sx={{ marginBottom: 2 }} />
+          {/* Динамическое добавление контактных лиц */}
+          {contacts.map((contact, index) => (
+            <Box key={index} sx={{ marginBottom: 3 }}>
+                <TextField
+                fullWidth
+                label="Контактное лицо"
+                value={contact.name}
+                onChange={(e) => handleContactChange(index, 'name', e.target.value)}
+                variant="outlined"
+                sx={{ marginBottom: 2 }}
+                />
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                <TextField
+                    fullWidth
+                    label="Телефон"
+                    value={contact.phone}
+                    onChange={(e) => handleContactChange(index, 'phone', e.target.value)}
+                    variant="outlined"
+                    sx={{ marginBottom: 2 }}
+                />
+                <TextField
+                    fullWidth
+                    label="Электронная почта"
+                    value={contact.email}
+                    onChange={(e) => handleContactChange(index, 'email', e.target.value)}
+                    variant="outlined"
+                    sx={{ marginBottom: 2 }}
+                />
+                </Box>
+                <TextField
+                fullWidth
+                label="Должность"
+                value={contact.position}
+                onChange={(e) => handleContactChange(index, 'position', e.target.value)}
+                variant="outlined"
+                sx={{ marginBottom: 2 }}
+                />
 
-          <Typography sx={{ marginBottom: 2 }}>Электронная почта:</Typography>
-          <TextField fullWidth label="info@company.com" variant="outlined" sx={{ marginBottom: 2 }} />
+                {/* Добавляем разделитель только если это не последний контакт */}
+                {index !== contacts.length - 1 && <hr style={{ margin: '20px 0' }} />}
+            </Box>
+            ))}
+
+
+            <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',  // Центрирование всех элементов внутри
+                justifyContent: 'center',
+                width: '100%',  // Это гарантирует, что контейнер будет занимать всю доступную ширину
+            }}
+            >
+            {/* Кнопка добавления нового контактного лица */}
+            <IconButton
+                onClick={handleAddContact}
+                sx={{
+                backgroundColor: '#e0e0e0',
+                color: '#000',
+                borderRadius: '50%', // Круглая форма
+                padding: 2,  // Увеличен отступ для удобства клика
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                '&:hover': {
+                    backgroundColor: '#bdbdbd',
+                },
+                marginBottom: 3, // Отступ для кнопки плюса
+                width: '50px',  // Ширина кнопки
+                height: '50px',  // Высота кнопки
+                }}
+            >
+                <AddIcon />
+            </IconButton>
+            </Box>
 
           <Button
             variant="contained"
