@@ -7,7 +7,13 @@ import AnalysisPage from '../pages/AnalysisPage';
 import PoolDetailsPage from '../pages/PoolDetailsPage';
 import NewVendorPage from '../pages/NewVendorPage';
 import SelectSupplierPage from '../pages/SelectSupplierPage';
-import RegisterSupplierPage from '../pages/RegisterSupplierPage'; // Убедитесь, что импортирован RegisterSupplierPage
+import RegisterSupplierPage from '../pages/RegisterSupplierPage';
+import PurchasePage from '../pages/PurchasePage';
+import PoolListPage from '../pages/PoolListPage';
+import SuppliersListPage from '../pages/SuppliersListPage';
+import RequestListPage from '../pages/RequestListPage';
+import PaymentsPage from '../pages/PaymentsPage';
+import TasksPage from '../pages/TasksPage'; // Импортируем TasksPage
 
 interface PageRouterProps {
   currentPage:
@@ -19,7 +25,13 @@ interface PageRouterProps {
     | 'poolDetails'
     | 'newVendor'
     | 'selectSupplier'
-    | 'registerSupplier';
+    | 'registerSupplier'
+    | 'purchases'
+    | 'pools'
+    | 'suppliers'
+    | 'requests'
+    | 'payments'
+    | 'tasks'; // Добавляем 'tasks'
   onNewRequestClick: () => void;
   onPoolClick: () => void;
   onNextActionClick: () => void;
@@ -28,11 +40,10 @@ interface PageRouterProps {
   onClose: () => void;
   onCreateEmptyPool: () => void;
   onNewVendorClick: () => void;
-  onRegisterNewSupplier: () => void;  // Добавляем onRegisterNewSupplier
+  onRegisterNewSupplier: () => void;
   onNextClick: () => void;
 }
 
-// PageRouter.tsx
 const PageRouter: React.FC<PageRouterProps> = ({
   currentPage,
   onNewRequestClick,
@@ -71,10 +82,21 @@ const PageRouter: React.FC<PageRouterProps> = ({
       return <SelectSupplierPage onClose={onClose} onRegisterNewSupplier={onRegisterNewSupplier} />;
     case 'registerSupplier':
       return <RegisterSupplierPage onClose={onClose} />;
+    case 'purchases':
+      return <PurchasePage />;
+    case 'pools':
+      return <PoolListPage />;
+    case 'suppliers':
+      return <SuppliersListPage />;
+    case 'requests':
+      return <RequestListPage />;
+    case 'payments':
+      return <PaymentsPage />;
+    case 'tasks': // Переход на страницу "Задачи"
+      return <TasksPage />;
     default:
       return null;
   }
 };
-
 
 export default PageRouter;

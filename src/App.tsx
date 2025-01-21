@@ -6,8 +6,15 @@ import PageRouter from './components/PageRouter';
 
 const App: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [currentPage, setCurrentPage] = useState<'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier' | 'registerSupplier'>('home');
+  const [currentPage, setCurrentPage] = useState<
+    'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier' | 'registerSupplier' | 'purchases'
+  >('home');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  // Обработчик навигации
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page as typeof currentPage);
+  };
 
   const handleNewRequestClick = () => setCurrentPage('newRequest');
   const handlePoolClick = () => setCurrentPage('poolRegistration');
@@ -17,23 +24,24 @@ const App: React.FC = () => {
   const handleNewVendorClick = () => setCurrentPage('newVendor');
   const handleSelectSupplierClick = () => setCurrentPage('selectSupplier');
   
-  // Новый обработчик для перехода на RegisterSupplierPage
-  const handleRegisterNewSupplier = () => {
-    setCurrentPage('registerSupplier');
-  };
-
+  const handleRegisterNewSupplier = () => setCurrentPage('registerSupplier');
   const handleClose = () => setCurrentPage('home');
   const handleSnackbarClose = () => setSnackbarOpen(false);
   const handleCreateEmptyPool = () => {
-    setSnackbarOpen(true); // Отображаем уведомление
+    setSnackbarOpen(true);
     setCurrentPage('home');
   };
-  const handleNextClick = () => setCurrentPage('selectSupplier'); // Переход на страницу выбора поставщика
+  const handleNextClick = () => setCurrentPage('selectSupplier');
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Sidebar open={drawerOpen} toggleDrawer={() => setDrawerOpen(!drawerOpen)} />
+      {/* Передаем onNavigate в Sidebar */}
+      <Sidebar
+        open={drawerOpen}
+        toggleDrawer={() => setDrawerOpen(!drawerOpen)}
+        onNavigate={handleNavigate}
+      />
       <Header drawerOpen={drawerOpen} onNewRequestClick={handleNewRequestClick} />
 
       {/* Основной контент */}
@@ -59,7 +67,7 @@ const App: React.FC = () => {
           onCreateEmptyPool={handleCreateEmptyPool}
           onNewVendorClick={handleNewVendorClick}
           onNextClick={handleNextClick}
-          onRegisterNewSupplier={handleRegisterNewSupplier}  // Передаем обработчик
+          onRegisterNewSupplier={handleRegisterNewSupplier}
         />
       </Box>
 
