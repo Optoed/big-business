@@ -16,6 +16,7 @@ import PaymentsPage from '../pages/PaymentsPage';
 import TasksPage from '../pages/TasksPage';
 import SettingsPage from '../pages/SettingsPage';
 import ScenarioPage from '../pages/ScenarioPage';
+import NewPurchasePage from '../pages/NewPurchasePage';
 
 interface PageRouterProps {
   currentPage: string;
@@ -29,7 +30,8 @@ interface PageRouterProps {
   onNewVendorClick: () => void;
   onRegisterNewSupplier: () => void;
   onNextClick: () => void;
-  onScenarioClick: () => void; // Добавляем onScenarioClick
+  onScenarioClick: () => void;
+  onNavigate: (page: string) => void; // Добавляем сюда
 }
 
 const PageRouter: React.FC<PageRouterProps> = ({
@@ -44,7 +46,8 @@ const PageRouter: React.FC<PageRouterProps> = ({
   onNewVendorClick,
   onRegisterNewSupplier,
   onNextClick,
-  onScenarioClick, // Приняли обработчик
+  onScenarioClick,
+  onNavigate, // Приняли onNavigate
 }) => {
   switch (currentPage) {
     case 'home':
@@ -64,7 +67,7 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'selectSupplier':
       return <SelectSupplierPage onClose={onClose} onRegisterNewSupplier={onRegisterNewSupplier} />;
     case 'registerSupplier':
-      return <RegisterSupplierPage onClose={onClose} />;
+      return <RegisterSupplierPage onClose={onClose} onNavigate={onNavigate} />; // Передаем onNavigate
     case 'purchases':
       return <PurchasePage />;
     case 'pools':
@@ -81,6 +84,8 @@ const PageRouter: React.FC<PageRouterProps> = ({
       return <SettingsPage onScenarioClick={onScenarioClick} />;
     case 'scenarios':
       return <ScenarioPage />;
+    case 'newPurchase':
+      return <NewPurchasePage />;
     default:
       return null;
   }

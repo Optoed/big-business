@@ -24,11 +24,12 @@ const App: React.FC = () => {
     | 'tasks'
     | 'settings'
     | 'scenarios'
+    | 'newPurchase'
   >('home');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Обработчики навигации
-  const handleNavigate = (page: string) => setCurrentPage(page as typeof currentPage);
+  const handleNavigate = (page: string) => setCurrentPage(page as typeof currentPage); // Добавлено
+
   const handleNewRequestClick = () => setCurrentPage('newRequest');
   const handlePoolClick = () => setCurrentPage('poolRegistration');
   const handleNextActionClick = () => setCurrentPage('nextAction');
@@ -37,7 +38,7 @@ const App: React.FC = () => {
   const handleNewVendorClick = () => setCurrentPage('newVendor');
   const handleSelectSupplierClick = () => setCurrentPage('selectSupplier');
   const handleRegisterNewSupplier = () => setCurrentPage('registerSupplier');
-  const handleScenarioClick = () => setCurrentPage('scenarios'); // Переход на сценарии
+  const handleScenarioClick = () => setCurrentPage('scenarios');
   const handleClose = () => setCurrentPage('home');
   const handleSnackbarClose = () => setSnackbarOpen(false);
   const handleCreateEmptyPool = () => {
@@ -56,7 +57,6 @@ const App: React.FC = () => {
       />
       <Header drawerOpen={drawerOpen} onNewRequestClick={handleNewRequestClick} />
 
-      {/* Основной контент */}
       <Box
         sx={{
           flexGrow: 1,
@@ -70,6 +70,7 @@ const App: React.FC = () => {
       >
         <PageRouter
           currentPage={currentPage}
+          onNavigate={handleNavigate} // Передаем обработчик
           onNewRequestClick={handleNewRequestClick}
           onPoolClick={handlePoolClick}
           onNextActionClick={handleNextActionClick}
@@ -80,11 +81,10 @@ const App: React.FC = () => {
           onNewVendorClick={handleNewVendorClick}
           onRegisterNewSupplier={handleRegisterNewSupplier}
           onNextClick={handleNextClick}
-          onScenarioClick={handleScenarioClick} // Передаем обработчик
+          onScenarioClick={handleScenarioClick}
         />
       </Box>
 
-      {/* Уведомление */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
