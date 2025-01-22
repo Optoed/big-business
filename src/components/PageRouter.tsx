@@ -80,7 +80,7 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'settings':
       return <SettingsPage onScenarioClick={onScenarioClick} />;
     case 'scenarios':
-      return <ScenarioPage onScenarioClick={onScenarioClick} />;
+      return <ScenarioPage />;
     default:
       return null;
   }

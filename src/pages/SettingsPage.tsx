@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Button, Divider } from '@mui/material';
 
 interface SettingsPageProps {
-  onScenarioClick: () => void; // Пропс для обработки нажатия на кнопку "Управление сценариями"
+  onScenarioClick: () => void; // Добавляем пропс
 }
 
 const SettingsPage: React.FC<SettingsPageProps> = ({ onScenarioClick }) => {
@@ -45,7 +45,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onScenarioClick }) => {
             color: '#000',
             textTransform: 'none',
           }}
-          onClick={onScenarioClick} // Вызываем обработчик
+          onClick={onScenarioClick} // Используем переданный пропс
         >
           Управление сценариями
         </Button>
