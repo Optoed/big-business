@@ -17,6 +17,7 @@ import TasksPage from '../pages/TasksPage';
 import SettingsPage from '../pages/SettingsPage';
 import ScenarioPage from '../pages/ScenarioPage';
 import NewPurchasePage from '../pages/NewPurchasePage';
+import PurchaseViewPage from '../pages/PurchaseViewPage';
 
 interface PageRouterProps {
   currentPage: string;
@@ -86,6 +87,8 @@ const PageRouter: React.FC<PageRouterProps> = ({
       return <ScenarioPage />;
     case 'newPurchase':
       return <NewPurchasePage />;
+    case 'purchaseView':
+      return <PurchaseViewPage />;
     default:
       return null;
   }

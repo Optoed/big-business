@@ -218,7 +218,7 @@ const RegisterSupplierPage: React.FC<RegisterSupplierPageProps> = ({ onClose, on
               textTransform: 'none',
               '&:hover': { backgroundColor: '#333' },
             }}
-            onClick={handleNext}
+            onClick={() => onNavigate('purchaseView')}
           >
             Далее
           </Button>
