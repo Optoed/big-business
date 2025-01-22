@@ -13,25 +13,12 @@ import PoolListPage from '../pages/PoolListPage';
 import SuppliersListPage from '../pages/SuppliersListPage';
 import RequestListPage from '../pages/RequestListPage';
 import PaymentsPage from '../pages/PaymentsPage';
-import TasksPage from '../pages/TasksPage'; // Импортируем TasksPage
+import TasksPage from '../pages/TasksPage';
+import SettingsPage from '../pages/SettingsPage';
+import ScenarioPage from '../pages/ScenarioPage';
 
 interface PageRouterProps {
-  currentPage:
-    | 'home'
-    | 'newRequest'
-    | 'poolRegistration'
-    | 'nextAction'
-    | 'analysis'
-    | 'poolDetails'
-    | 'newVendor'
-    | 'selectSupplier'
-    | 'registerSupplier'
-    | 'purchases'
-    | 'pools'
-    | 'suppliers'
-    | 'requests'
-    | 'payments'
-    | 'tasks'; // Добавляем 'tasks'
+  currentPage: string;
   onNewRequestClick: () => void;
   onPoolClick: () => void;
   onNextActionClick: () => void;
@@ -42,6 +29,7 @@ interface PageRouterProps {
   onNewVendorClick: () => void;
   onRegisterNewSupplier: () => void;
   onNextClick: () => void;
+  onScenarioClick: () => void; // Добавляем onScenarioClick
 }
 
 const PageRouter: React.FC<PageRouterProps> = ({
@@ -56,6 +44,7 @@ const PageRouter: React.FC<PageRouterProps> = ({
   onNewVendorClick,
   onRegisterNewSupplier,
   onNextClick,
+  onScenarioClick, // Приняли обработчик
 }) => {
   switch (currentPage) {
     case 'home':
@@ -65,13 +54,7 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'poolRegistration':
       return <PoolRegistrationPage onClose={onClose} onNextActionClick={onNextActionClick} />;
     case 'nextAction':
-      return (
-        <NextActionPage
-          onClose={onClose}
-          onCreateEmptyPool={onCreateEmptyPool}
-          onAnalysisClick={onAnalysisClick}
-        />
-      );
+      return <NextActionPage onClose={onClose} onCreateEmptyPool={onCreateEmptyPool} onAnalysisClick={onAnalysisClick} />;
     case 'analysis':
       return <AnalysisPage onClose={onClose} onPoolDetailsClick={onPoolDetailsClick} />;
     case 'poolDetails':
@@ -92,8 +75,12 @@ const PageRouter: React.FC<PageRouterProps> = ({
       return <RequestListPage />;
     case 'payments':
       return <PaymentsPage />;
-    case 'tasks': // Переход на страницу "Задачи"
+    case 'tasks':
       return <TasksPage />;
+    case 'settings':
+      return <SettingsPage onScenarioClick={onScenarioClick} />;
+    case 'scenarios':
+      return <ScenarioPage onScenarioClick={onScenarioClick} />;
     default:
       return null;
   }

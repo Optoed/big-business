@@ -7,15 +7,28 @@ import PageRouter from './components/PageRouter';
 const App: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [currentPage, setCurrentPage] = useState<
-    'home' | 'newRequest' | 'poolRegistration' | 'nextAction' | 'analysis' | 'poolDetails' | 'newVendor' | 'selectSupplier' | 'registerSupplier' | 'purchases'
+    | 'home'
+    | 'newRequest'
+    | 'poolRegistration'
+    | 'nextAction'
+    | 'analysis'
+    | 'poolDetails'
+    | 'newVendor'
+    | 'selectSupplier'
+    | 'registerSupplier'
+    | 'purchases'
+    | 'pools'
+    | 'suppliers'
+    | 'requests'
+    | 'payments'
+    | 'tasks'
+    | 'settings'
+    | 'scenarios'
   >('home');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Обработчик навигации
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page as typeof currentPage);
-  };
-
+  // Обработчики навигации
+  const handleNavigate = (page: string) => setCurrentPage(page as typeof currentPage);
   const handleNewRequestClick = () => setCurrentPage('newRequest');
   const handlePoolClick = () => setCurrentPage('poolRegistration');
   const handleNextActionClick = () => setCurrentPage('nextAction');
@@ -23,8 +36,8 @@ const App: React.FC = () => {
   const handlePoolDetailsClick = () => setCurrentPage('poolDetails');
   const handleNewVendorClick = () => setCurrentPage('newVendor');
   const handleSelectSupplierClick = () => setCurrentPage('selectSupplier');
-  
   const handleRegisterNewSupplier = () => setCurrentPage('registerSupplier');
+  const handleScenarioClick = () => setCurrentPage('scenarios'); // Переход на сценарии
   const handleClose = () => setCurrentPage('home');
   const handleSnackbarClose = () => setSnackbarOpen(false);
   const handleCreateEmptyPool = () => {
@@ -36,7 +49,6 @@ const App: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      {/* Передаем onNavigate в Sidebar */}
       <Sidebar
         open={drawerOpen}
         toggleDrawer={() => setDrawerOpen(!drawerOpen)}
@@ -66,8 +78,9 @@ const App: React.FC = () => {
           onClose={handleClose}
           onCreateEmptyPool={handleCreateEmptyPool}
           onNewVendorClick={handleNewVendorClick}
-          onNextClick={handleNextClick}
           onRegisterNewSupplier={handleRegisterNewSupplier}
+          onNextClick={handleNextClick}
+          onScenarioClick={handleScenarioClick} // Передаем обработчик
         />
       </Box>
 
