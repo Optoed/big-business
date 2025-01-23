@@ -3,36 +3,36 @@ import { Box, Typography, Button, Paper, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface NewRequestPageProps {
-  onClose: () => void; // Функция для возврата на главную страницу
-  onPoolClick: () => void; // Функция для перехода на страницу "Регистрация нового пула"
+  onClose: () => void; // Закрытие текущей страницы
+  onPoolClick: () => void; // Переход на страницу регистрации пула
+  onPurchaseClick: () => void; // Переход на страницу "Новая закупка"
 }
 
-const NewRequestPage: React.FC<NewRequestPageProps> = ({ onClose, onPoolClick }) => (
+const NewRequestPage: React.FC<NewRequestPageProps> = ({ onClose, onPoolClick, onPurchaseClick }) => (
   <Box
     sx={{
-      position: 'relative', // Для позиционирования кнопки выхода
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'start', // Располагаем элементы выше
-      height: '100vh', // Заполняем всю высоту окна
-      width: '100%', // Заполняем всю ширину
-      paddingTop: 10, // Отступ сверху
-      backgroundColor: '#f4f4f4', // Фон совпадает с HomePage
+      justifyContent: 'start',
+      height: '100vh',
+      width: '100%',
+      paddingTop: 10,
+      backgroundColor: '#f4f4f4',
     }}
   >
-    {/* Кнопка выхода на главную страницу */}
     <IconButton
       onClick={onClose}
       sx={{
         position: 'absolute',
-        top: 16, // Отступ сверху
-        right: 16, // Отступ справа
-        backgroundColor: '#e0e0e0', // Нейтральный цвет
+        top: 16,
+        right: 16,
+        backgroundColor: '#e0e0e0',
         color: '#000',
         borderRadius: 2,
         padding: 1.5,
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', // Тень для объема
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
         '&:hover': {
           backgroundColor: '#bdbdbd',
         },
@@ -41,7 +41,6 @@ const NewRequestPage: React.FC<NewRequestPageProps> = ({ onClose, onPoolClick })
       <CloseIcon />
     </IconButton>
 
-    {/* Заголовок */}
     <Typography
       variant="h5"
       sx={{
@@ -53,14 +52,13 @@ const NewRequestPage: React.FC<NewRequestPageProps> = ({ onClose, onPoolClick })
       Выберите тип запроса, который вы хотите создать:
     </Typography>
 
-    {/* Блок с кнопками */}
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 3, // Отступы между кнопками
+        gap: 3,
         width: '100%',
-        maxWidth: 500, // Ограничиваем ширину блока
+        maxWidth: 500,
       }}
     >
       {/* Кнопка для "Пул" */}
@@ -70,13 +68,13 @@ const NewRequestPage: React.FC<NewRequestPageProps> = ({ onClose, onPoolClick })
           padding: 2,
           borderRadius: 2,
           cursor: 'pointer',
-          '&:hover': { backgroundColor: '#e0f7fa' }, // Легкий голубой эффект наведения
+          '&:hover': { backgroundColor: '#e0f7fa' },
         }}
       >
         <Button
           fullWidth
           variant="text"
-          onClick={onPoolClick} // Переход на страницу регистрации пула
+          onClick={onPoolClick}
           sx={{
             textTransform: 'none',
             fontWeight: 'bold',
@@ -102,12 +100,13 @@ const NewRequestPage: React.FC<NewRequestPageProps> = ({ onClose, onPoolClick })
           padding: 2,
           borderRadius: 2,
           cursor: 'pointer',
-          '&:hover': { backgroundColor: '#e0f7fa' }, // Легкий голубой эффект наведения
+          '&:hover': { backgroundColor: '#e0f7fa' },
         }}
       >
         <Button
           fullWidth
           variant="text"
+          onClick={onPurchaseClick} // Переход на "NewVendorPage"
           sx={{
             textTransform: 'none',
             fontWeight: 'bold',

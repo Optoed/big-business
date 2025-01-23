@@ -6,12 +6,14 @@ interface NextActionPageProps {
   onClose: () => void; // Закрытие страницы
   onAnalysisClick: () => void; // Переход к анализу предложений
   onCreateEmptyPool: () => void; // Создание пустого пула
+  onPurchaseClick: () => void; // Переход на страницу "Новая закупка"
 }
 
 const NextActionPage: React.FC<NextActionPageProps> = ({
   onClose,
   onAnalysisClick,
   onCreateEmptyPool,
+  onPurchaseClick, // Пропс для кнопки "Закупка"
 }) => (
   <Box
     sx={{
@@ -109,6 +111,7 @@ const NextActionPage: React.FC<NextActionPageProps> = ({
           cursor: 'pointer',
           '&:hover': { backgroundColor: '#e0f7fa' },
         }}
+        onClick={onPurchaseClick} // Переход на "NewVendorPage"
       >
         <Button
           fullWidth
@@ -162,25 +165,6 @@ const NextActionPage: React.FC<NextActionPageProps> = ({
           </Typography>
         </Button>
       </Paper>
-    </Box>
-
-    {/* Дополнительная кнопка "Создать запрос" */}
-    <Box sx={{ marginTop: 4 }}>
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: '#000',
-          color: '#fff',
-          textTransform: 'none',
-          fontWeight: 'bold',
-          padding: 1.5,
-          '&:hover': {
-            backgroundColor: '#333',
-          },
-        }}
-      >
-        Создать запрос
-      </Button>
     </Box>
   </Box>
 );

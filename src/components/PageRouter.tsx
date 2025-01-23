@@ -54,11 +54,24 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'home':
       return <HomePage />;
     case 'newRequest':
-      return <NewRequestPage onClose={onClose} onPoolClick={onPoolClick} />;
+      return (
+        <NewRequestPage
+          onClose={onClose}
+          onPoolClick={onPoolClick}
+          onPurchaseClick={() => onNavigate('newVendor')}
+        />
+      );
     case 'poolRegistration':
       return <PoolRegistrationPage onClose={onClose} onNextActionClick={onNextActionClick} />;
     case 'nextAction':
-      return <NextActionPage onClose={onClose} onCreateEmptyPool={onCreateEmptyPool} onAnalysisClick={onAnalysisClick} />;
+      return (
+        <NextActionPage
+          onClose={onClose}
+          onAnalysisClick={onAnalysisClick}
+          onCreateEmptyPool={onCreateEmptyPool}
+          onPurchaseClick={() => onNavigate('newVendor')} // Переход на "NewVendorPage"
+        />
+      );
     case 'analysis':
       return <AnalysisPage onClose={onClose} onPoolDetailsClick={onPoolDetailsClick} />;
     case 'poolDetails':
