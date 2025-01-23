@@ -17,7 +17,7 @@ import TasksPage from '../pages/TasksPage';
 import SettingsPage from '../pages/SettingsPage';
 import ScenarioPage from '../pages/ScenarioPage';
 import NewPurchasePage from '../pages/NewPurchasePage';
-import PurchaseViewPage from '../pages/PurchaseViewPage';
+import PurchaseViewPage from '../pages/PurchaseView/PurchaseViewPage';
 
 interface PageRouterProps {
   currentPage: string;
