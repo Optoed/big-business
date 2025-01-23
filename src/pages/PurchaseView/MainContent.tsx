@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import Parameters from './Parameters';
 import Section from './Section';
 
-// Импорт отдельных компонентов
+// Импорт компонентов для каждого раздела
 import Requests from './sections/Requests';
 import ApprovalStages from './sections/ApprovalStages';
 import Nomenclature from './sections/Nomenclature';
@@ -14,10 +14,23 @@ import Payment from './sections/Payment';
 import Logistics from './sections/Logistics';
 
 const MainContent: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  // Состояние для каждого блока
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
+    'Запросы': false,
+    'Этапы согласования': false,
+    'Номенклатура': false,
+    'Условия поставки': false,
+    'Документы и фото': false,
+    'Этапы выполнения': false,
+    'Оплата': false,
+    'Логистика': false,
+  });
 
   const handleToggleSection = (section: string) => {
-    setActiveSection((prev) => (prev === section ? null : section));
+    setOpenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section], // Переключение состояния конкретного блока
+    }));
   };
 
   const sections = [
@@ -41,7 +54,7 @@ const MainContent: React.FC = () => {
         <Section
           key={section.title}
           title={section.title}
-          isActive={activeSection === section.title}
+          isActive={openSections[section.title]} // Независимое состояние для каждого блока
           onToggle={() => handleToggleSection(section.title)}
         >
           {section.component}
