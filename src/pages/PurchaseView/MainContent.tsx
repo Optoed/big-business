@@ -3,6 +3,16 @@ import { Box } from '@mui/material';
 import Parameters from './Parameters';
 import Section from './Section';
 
+// Импорт отдельных компонентов
+import Requests from './sections/Requests';
+import ApprovalStages from './sections/ApprovalStages';
+import Nomenclature from './sections/Nomenclature';
+import DeliveryConditions from './sections/DeliveryConditions';
+import DocumentsPhotos from './sections/DocumentsPhotos';
+import ExecutionStages from './sections/ExecutionStages';
+import Payment from './sections/Payment';
+import Logistics from './sections/Logistics';
+
 const MainContent: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
@@ -10,31 +20,31 @@ const MainContent: React.FC = () => {
     setActiveSection((prev) => (prev === section ? null : section));
   };
 
+  const sections = [
+    { title: 'Запросы', component: <Requests /> },
+    { title: 'Этапы согласования', component: <ApprovalStages /> },
+    { title: 'Номенклатура', component: <Nomenclature /> },
+    { title: 'Условия поставки', component: <DeliveryConditions /> },
+    { title: 'Документы и фото', component: <DocumentsPhotos /> },
+    { title: 'Этапы выполнения', component: <ExecutionStages /> },
+    { title: 'Оплата', component: <Payment /> },
+    { title: 'Логистика', component: <Logistics /> },
+  ];
+
   return (
     <Box sx={{ flex: 1 }}>
       {/* Основные параметры */}
       <Parameters />
 
       {/* Разделы */}
-      {[
-        'Запросы',
-        'Этапы согласования',
-        'Номенклатура',
-        'Условия поставки',
-        'Документы и фото',
-        'Этапы выполнения',
-        'Оплата',
-        'Логистика',
-      ].map((section) => (
+      {sections.map((section) => (
         <Section
-          key={section}
-          title={section}
-          isActive={activeSection === section}
-          onToggle={() => handleToggleSection(section)}
+          key={section.title}
+          title={section.title}
+          isActive={activeSection === section.title}
+          onToggle={() => handleToggleSection(section.title)}
         >
-          <Box sx={{ padding: 2, backgroundColor: '#fff' }}>
-            <p>Контент для раздела "{section}"</p>
-          </Box>
+          {section.component}
         </Section>
       ))}
     </Box>
