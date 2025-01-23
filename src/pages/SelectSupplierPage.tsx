@@ -1,14 +1,14 @@
-// SelectSupplierPage.tsx
 import React from 'react';
 import { Box, Typography, Button, TextField, MenuItem, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface SelectSupplierPageProps {
-  onClose: () => void;
-  onRegisterNewSupplier: () => void;  // Этот пропс должен быть передан из родительского компонента
+  onClose: () => void; // Закрытие страницы
+  onRegisterNewSupplier: () => void; // Переход на регистрацию нового поставщика
+  onSkip: () => void; // Переход на страницу "NewPurchasePage"
 }
 
-const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegisterNewSupplier }) => (
+const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegisterNewSupplier, onSkip }) => (
   <Box
     sx={{
       position: 'relative',
@@ -74,7 +74,7 @@ const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegi
             borderColor: '#333',
           },
         }}
-        onClick={onRegisterNewSupplier}  // Важно! Этот обработчик должен работать
+        onClick={onRegisterNewSupplier} // Обработчик для регистрации нового поставщика
       >
         Зарегистрировать нового поставщика
       </Button>
@@ -89,7 +89,7 @@ const SelectSupplierPage: React.FC<SelectSupplierPageProps> = ({ onClose, onRegi
             backgroundColor: 'transparent',
           },
         }}
-        onClick={onClose}
+        onClick={onSkip} // Обработчик для пропуска
       >
         Пропустить
       </Button>

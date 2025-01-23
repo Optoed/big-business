@@ -13,7 +13,11 @@ import {
   Button,
 } from '@mui/material';
 
-const NewPurchasePage: React.FC = () => {
+interface NewPurchasePageProps {
+  onSave: () => void; // Проп для обработки сохранения и перехода
+}
+
+const NewPurchasePage: React.FC<NewPurchasePageProps> = ({ onSave }) => {
   return (
     <Box
       sx={{
@@ -33,7 +37,6 @@ const NewPurchasePage: React.FC = () => {
 
       {/* Форма закупки */}
       <Box sx={{ width: '100%', maxWidth: 900, display: 'flex', flexWrap: 'wrap', gap: 2, marginBottom: 4 }}>
-        {/* Бюджет закупки */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Бюджет закупки:</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -42,13 +45,11 @@ const NewPurchasePage: React.FC = () => {
           </Box>
         </Box>
 
-        {/* Требуемая дата согласования */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Требуемая дата согласования:</Typography>
           <TextField fullWidth type="date" defaultValue="2025-01-10" variant="outlined" />
         </Box>
 
-        {/* Объект */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Объект:</Typography>
           <TextField fullWidth select defaultValue="ЖК Пионер" variant="outlined">
@@ -57,13 +58,11 @@ const NewPurchasePage: React.FC = () => {
           </TextField>
         </Box>
 
-        {/* Требуемая дата поставки */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Требуемая дата поставки:</Typography>
           <TextField fullWidth type="date" defaultValue="2025-01-20" variant="outlined" />
         </Box>
 
-        {/* Категория */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Категория:</Typography>
           <TextField fullWidth select defaultValue="Стройматериалы" variant="outlined">
@@ -72,7 +71,6 @@ const NewPurchasePage: React.FC = () => {
           </TextField>
         </Box>
 
-        {/* Подкатегория */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Подкатегория:</Typography>
           <TextField fullWidth select defaultValue="Отделочные материалы" variant="outlined">
@@ -81,13 +79,11 @@ const NewPurchasePage: React.FC = () => {
           </TextField>
         </Box>
 
-        {/* Краткое обоснование */}
         <Box sx={{ flexBasis: '100%' }}>
           <Typography sx={{ marginBottom: 1 }}>Краткое обоснование:</Typography>
           <TextField fullWidth defaultValue="Закупка на 1 этаж блок-секции №2" variant="outlined" />
         </Box>
 
-        {/* Поставщик */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Поставщик:</Typography>
           <TextField fullWidth select defaultValue="Рога и Копыта" variant="outlined">
@@ -96,7 +92,6 @@ const NewPurchasePage: React.FC = () => {
           </TextField>
         </Box>
 
-        {/* Представитель */}
         <Box sx={{ flexBasis: '48%' }}>
           <Typography sx={{ marginBottom: 1 }}>Представитель:</Typography>
           <TextField fullWidth select defaultValue="Туманов Сергей" variant="outlined">
@@ -147,6 +142,7 @@ const NewPurchasePage: React.FC = () => {
       <Box sx={{ maxWidth: 900, width: '100%' }}>
         <Button
           variant="contained"
+          onClick={onSave} // Вызываем обработчик сохранения
           sx={{
             backgroundColor: '#000',
             color: '#fff',

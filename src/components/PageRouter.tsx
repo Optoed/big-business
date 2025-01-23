@@ -79,7 +79,13 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'newVendor':
       return <NewVendorPage onClose={onClose} onNextClick={onNextClick} />;
     case 'selectSupplier':
-      return <SelectSupplierPage onClose={onClose} onRegisterNewSupplier={onRegisterNewSupplier} />;
+      return (
+        <SelectSupplierPage
+          onClose={onClose}
+          onRegisterNewSupplier={onRegisterNewSupplier}
+          onSkip={() => onNavigate('newPurchase')} // Переход на "NewPurchasePage"
+        />
+      );      
     case 'registerSupplier':
       return <RegisterSupplierPage onClose={onClose} onNavigate={onNavigate} />; // Передаем onNavigate
     case 'purchases':
@@ -99,9 +105,9 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'scenarios':
       return <ScenarioPage />;
     case 'newPurchase':
-      return <NewPurchasePage />;
-      case 'purchaseView':
-        return <PurchaseViewPage onNavigate={onNavigate} />;      
+      return <NewPurchasePage onSave={() => onNavigate('purchaseView')} />;      
+    case 'purchaseView':
+      return <PurchaseViewPage onNavigate={onNavigate} />;      
     default:
       return null;
   }
