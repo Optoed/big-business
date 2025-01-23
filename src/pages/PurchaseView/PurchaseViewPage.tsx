@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Button, Snackbar, Alert } from '@mui/material';
 import Header from './Header';
 import Navigation from './Navigation';
 import MainContent from './MainContent';
@@ -10,9 +10,16 @@ interface PurchaseViewPageProps {
 }
 
 const PurchaseViewPage: React.FC<PurchaseViewPageProps> = ({ onNavigate }) => {
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // Состояние для Snackbar
+
   const handleSave = () => {
     console.log('Данные сохранены!');
+    setSnackbarOpen(true); // Открытие Snackbar
     onNavigate('home'); // Переход на главную страницу
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false); // Закрытие Snackbar
   };
 
   return (
@@ -59,6 +66,22 @@ const PurchaseViewPage: React.FC<PurchaseViewPageProps> = ({ onNavigate }) => {
         {/* Правая колонка */}
         <Sidebar />
       </Box>
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000} // Автоматическое закрытие через 3 секунды
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} // Расположение внизу по центру
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: '100%' }}
+        >
+          Сохранено
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

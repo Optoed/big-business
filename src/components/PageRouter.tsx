@@ -32,7 +32,8 @@ interface PageRouterProps {
   onRegisterNewSupplier: () => void;
   onNextClick: () => void;
   onScenarioClick: () => void;
-  onNavigate: (page: string) => void; // Добавляем сюда
+  onNavigate: (page: string) => void;
+  showSnackbar?: (message: string, severity: 'success' | 'error' | 'info' | 'warning') => void; // Для показа Snackbar
 }
 
 const PageRouter: React.FC<PageRouterProps> = ({
@@ -48,7 +49,8 @@ const PageRouter: React.FC<PageRouterProps> = ({
   onRegisterNewSupplier,
   onNextClick,
   onScenarioClick,
-  onNavigate, // Приняли onNavigate
+  onNavigate,
+  showSnackbar,
 }) => {
   switch (currentPage) {
     case 'home':
@@ -69,7 +71,7 @@ const PageRouter: React.FC<PageRouterProps> = ({
           onClose={onClose}
           onAnalysisClick={onAnalysisClick}
           onCreateEmptyPool={onCreateEmptyPool}
-          onPurchaseClick={() => onNavigate('newVendor')} // Переход на "NewVendorPage"
+          onPurchaseClick={() => onNavigate('newVendor')}
         />
       );
     case 'analysis':
@@ -83,11 +85,11 @@ const PageRouter: React.FC<PageRouterProps> = ({
         <SelectSupplierPage
           onClose={onClose}
           onRegisterNewSupplier={onRegisterNewSupplier}
-          onSkip={() => onNavigate('newPurchase')} // Переход на "NewPurchasePage"
+          onSkip={() => onNavigate('newPurchase')}
         />
-      );      
+      );
     case 'registerSupplier':
-      return <RegisterSupplierPage onClose={onClose} onNavigate={onNavigate} />; // Передаем onNavigate
+      return <RegisterSupplierPage onClose={onClose} onNavigate={onNavigate} />;
     case 'purchases':
       return <PurchasePage />;
     case 'pools':
@@ -105,9 +107,25 @@ const PageRouter: React.FC<PageRouterProps> = ({
     case 'scenarios':
       return <ScenarioPage />;
     case 'newPurchase':
-      return <NewPurchasePage onSave={() => onNavigate('purchaseView')} />;      
+      return (
+        <NewPurchasePage
+          onSave={() => {
+            onNavigate('purchaseView');
+            showSnackbar?.('Закупка успешно сохранена!', 'success');
+          }}
+        />
+      );
     case 'purchaseView':
-      return <PurchaseViewPage onNavigate={onNavigate} />;      
+      return (
+        <PurchaseViewPage
+          onNavigate={(page) => {
+            if (page === 'home') {
+              showSnackbar?.('Сохранено', 'success');
+            }
+            onNavigate(page);
+          }}
+        />
+      );
     default:
       return null;
   }

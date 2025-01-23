@@ -25,10 +25,13 @@ const App: React.FC = () => {
     | 'settings'
     | 'scenarios'
     | 'newPurchase'
+    | 'purchaseView'
   >('home');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('success');
 
-  const handleNavigate = (page: string) => setCurrentPage(page as typeof currentPage); // Добавлено
+  const handleNavigate = (page: string) => setCurrentPage(page as typeof currentPage);
 
   const handleNewRequestClick = () => setCurrentPage('newRequest');
   const handlePoolClick = () => setCurrentPage('poolRegistration');
@@ -42,10 +45,18 @@ const App: React.FC = () => {
   const handleClose = () => setCurrentPage('home');
   const handleSnackbarClose = () => setSnackbarOpen(false);
   const handleCreateEmptyPool = () => {
+    setSnackbarMessage('Пул успешно сохранен!');
+    setSnackbarSeverity('success');
     setSnackbarOpen(true);
     setCurrentPage('home');
   };
   const handleNextClick = () => setCurrentPage('selectSupplier');
+
+  const handleShowSnackbar = (message: string, severity: 'success' | 'error' | 'info' | 'warning') => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -70,7 +81,8 @@ const App: React.FC = () => {
       >
         <PageRouter
           currentPage={currentPage}
-          onNavigate={handleNavigate} // Передаем обработчик
+          onNavigate={handleNavigate}
+          showSnackbar={handleShowSnackbar} // Передаем функцию для отображения Snackbar
           onNewRequestClick={handleNewRequestClick}
           onPoolClick={handlePoolClick}
           onNextActionClick={handleNextActionClick}
@@ -91,8 +103,8 @@ const App: React.FC = () => {
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
-          Пул успешно сохранен!
+        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
         </Alert>
       </Snackbar>
     </Box>
