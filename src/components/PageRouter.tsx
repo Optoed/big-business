@@ -87,8 +87,8 @@ const PageRouter: React.FC<PageRouterProps> = ({
       return <ScenarioPage />;
     case 'newPurchase':
       return <NewPurchasePage />;
-    case 'purchaseView':
-      return <PurchaseViewPage />;
+      case 'purchaseView':
+        return <PurchaseViewPage onNavigate={onNavigate} />;      
     default:
       return null;
   }

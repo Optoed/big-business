@@ -1,11 +1,20 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import Header from './Header';
 import Navigation from './Navigation';
 import MainContent from './MainContent';
 import Sidebar from './Sidebar';
 
-const PurchaseViewPage: React.FC = () => {
+interface PurchaseViewPageProps {
+  onNavigate: (page: string) => void; // Для навигации на главную страницу
+}
+
+const PurchaseViewPage: React.FC<PurchaseViewPageProps> = ({ onNavigate }) => {
+  const handleSave = () => {
+    console.log('Данные сохранены!');
+    onNavigate('home'); // Переход на главную страницу
+  };
+
   return (
     <Box
       sx={{
@@ -25,7 +34,29 @@ const PurchaseViewPage: React.FC = () => {
 
       {/* Контент: Левая колонка и Правая колонка */}
       <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
-        <MainContent />
+        <Box sx={{ flex: 3, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <MainContent />
+
+          {/* Кнопка Сохранить */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+            <Button
+              variant="contained"
+              onClick={handleSave}
+              sx={{
+                backgroundColor: '#000',
+                color: '#fff',
+                minWidth: '150px',
+                height: '40px',
+                fontSize: '14px',
+                ':hover': { backgroundColor: '#333' },
+              }}
+            >
+              Сохранить
+            </Button>
+          </Box>
+        </Box>
+
+        {/* Правая колонка */}
         <Sidebar />
       </Box>
     </Box>
