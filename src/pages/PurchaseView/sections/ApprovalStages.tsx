@@ -15,7 +15,10 @@ import {
 } from '@mui/material';
 
 const ApprovalStages: React.FC = () => {
-  const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
+  const [checkedTasks, setCheckedTasks] = useState<{ [task: string]: boolean }>({
+    'Проверить номенклатуру': true,
+    'Оценить необходимость доставки': false,
+  });
 
   const rows = [
     {
@@ -56,10 +59,10 @@ const ApprovalStages: React.FC = () => {
     },
   ];
 
-  const handleCheckboxChange = (id: string) => {
-    setChecked((prev) => ({
+  const handleCheckboxChange = (task: string) => {
+    setCheckedTasks((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [task]: !prev[task],
     }));
   };
 
@@ -74,13 +77,12 @@ const ApprovalStages: React.FC = () => {
               <TableCell>Ответственный</TableCell>
               <TableCell>Срок согласования</TableCell>
               <TableCell>Статус</TableCell>
-              <TableCell>Отметки</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
               <React.Fragment key={row.id}>
-                {/* Основная строка */}
+                {/* Основная строка этапа */}
                 <TableRow>
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{row.department}</TableCell>
@@ -90,8 +92,8 @@ const ApprovalStages: React.FC = () => {
                     <Select
                       defaultValue={row.status}
                       sx={{
-                        width: '130px', // Компактная ширина
-                        fontSize: '0.875rem', // Уменьшенный шрифт
+                        width: '130px',
+                        fontSize: '0.875rem',
                       }}
                     >
                       <MenuItem value="На очереди">На очереди</MenuItem>
@@ -99,24 +101,40 @@ const ApprovalStages: React.FC = () => {
                       <MenuItem value="Утверждено">Утверждено</MenuItem>
                     </Select>
                   </TableCell>
-                  <TableCell>
-                    <Checkbox
-                      checked={!!checked[row.id]}
-                      onChange={() => handleCheckboxChange(String(row.id))}
-                      color="success"
-                    />
-                  </TableCell>
                 </TableRow>
                 {/* Строка с задачами */}
                 {row.tasks.length > 0 && (
                   <TableRow>
-                    <TableCell colSpan={6} sx={{ paddingLeft: 4 }}>
+                    <TableCell colSpan={5} sx={{ paddingLeft: 4 }}>
                       <Typography sx={{ fontWeight: 'bold', marginBottom: 1 }}>
                         Задачи:
                       </Typography>
-                      <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                      <ul style={{ margin: 0, paddingLeft: '20px', listStyleType: 'none' }}>
                         {row.tasks.map((task, index) => (
-                          <li key={index}>{task}</li>
+                          <li
+                            key={index}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              marginBottom: '8px',
+                              gap: '8px',
+                            }}
+                          >
+                            <Checkbox
+                              checked={!!checkedTasks[task]}
+                              onChange={() => handleCheckboxChange(task)}
+                              color="success"
+                            />
+                            <Typography
+                              sx={{
+                                fontSize: '0.875rem',
+                                textDecoration: checkedTasks[task] ? 'line-through' : 'none', // Зачеркивание выполненных задач
+                                color: checkedTasks[task] ? '#999' : 'inherit', // Серый цвет для выполненных задач
+                              }}
+                            >
+                              {task}
+                            </Typography>
+                          </li>
                         ))}
                       </ul>
                     </TableCell>
